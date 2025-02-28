@@ -1,6 +1,6 @@
 #!/bin/bash
 
-alias chipi.version="echo ChipScript 1.1.0 \U0001F43F️"
+alias chipi.version="echo ChipScript 1.1.0 🐿️"
 alias chipi.reload="source ~/.bashrc"
 alias chipi.list="ls -a $SCRIPT_PATH/scripts"
 alias chipi.git="git -C \"$SCRIPT_PATH\""
