@@ -119,14 +119,16 @@ function chipi.install() {
 function chipi.load() {
     if [[ $1 == "--help" || $1 == "-h" ]]; then
         echo "Usage: chipi.load [script]"
-        echo "Description: Loads and executes a script from the specified directory."
-        echo "  - Grants permissions and installs before execution."
+        echo "Description: Modifies permissions, installs activation components, and executes the main.sh file from a specified script directory (modular script)."
+        echo "  - Changes permissions using chmod to ensure executability."
+        echo "  - Installs any dependencies or setup required by the script."
+        echo "  - Executes the main.sh file to load the modular script's functionality."
         echo "Example:"
-        echo "  chipi.load myscript  # Loads and runs 'myscript'"
+        echo "  chipi.load myscript  # Changes permissions, installs, and executes 'main.sh' from 'myscript' directory"
         return
     fi
     if [[ -f "$SCRIPT_PATH/scripts/${1}/main.sh" ]]; then
-        chipi.allow ${1}
+        chipi.allow ${1}  # This function should include the chmod operation
         chipi.install ${1}
         source "$SCRIPT_PATH/scripts/${1}/main.sh"
     else
@@ -149,4 +151,60 @@ function chipi.help() {
     else
         echo "Script directory ${1} does not exist."
     fi
+}
+
+
+
+function chipi() {
+    # Displaying general overview of ChipScript commands
+    echo "Chipi Command Help Overview:"
+    echo ""
+    echo "chipi.version - Displays the current version of ChipScript"
+    echo ""
+    echo "chipi.reload - Reloads the user's .bashrc file to apply new settings"
+    echo ""
+    echo "chipi.list - Lists all scripts within the specified script path"
+    echo ""
+    echo "Detailed command help:"
+    echo ""
+
+    # Section for editing scripts
+    echo "Editing scripts:"
+    chipi.edit --help
+    echo ""
+
+    # Section for opening scripts in Visual Studio Code
+    echo "Opening scripts in VS Code:"
+    chipi.code --help
+    echo ""
+
+    # Section for creating new script directories
+    echo "Creating new script directories:"
+    chipi.create --help
+    echo ""
+
+    # Section for removing script directories or files
+    echo "Removing script directories or files:"
+    chipi.remove --help
+    echo ""
+
+    # Section for granting execution permissions
+    echo "Granting execution permissions:"
+    chipi.allow --help
+    echo ""
+
+    # Section for executing 'install.sh' from a directory
+    echo "Executing 'install.sh' from a directory:"
+    chipi.install --help
+    echo ""
+
+    # Section for loading and executing modular scripts
+    echo "Loading and executing modular scripts:"
+    chipi.load --help
+    echo ""
+
+    # Section for providing help documentation
+    echo "Providing help documentation:"
+    chipi.help --help
+    echo ""
 }
