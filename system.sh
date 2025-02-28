@@ -55,18 +55,28 @@ function chipi.create() {
 function chipi.remove() {
     if [[ $1 == "--help" || $1 == "-h" ]]; then
         echo "Usage: chipi.remove [directory]"
-        echo "Description: Deletes a specified script directory."
-        echo "  - 'system' and 'master' cannot be removed."
+        echo "Description: Deletes a specified script directory or file, with protections against removing critical scripts."
+        echo "  - Files 'master.sh' and 'system.sh' are protected and cannot be removed."
         echo "Example:"
-        echo "  chipi.remove myscript  # Deletes 'myscript' directory"
+        echo "  chipi.remove myscript  # Deletes 'myscript' directory or file if it is not protected"
         return
     fi
-    if [[ $1 == "master" || $1 == "system" ]]; then
-        echo -e "\033[0;31mNo\033[0m"
+
+    local target_path=$(realpath "$SCRIPT_PATH/scripts/$1")
+    local base_name=$(basename "$target_path")
+
+    if [[ "$base_name" == "master.sh" || "$base_name" == "system.sh" ]]; then
+        echo -e "\033[0;31mCannot remove protected file '$base_name'.\033[0m"
     else
-        rm -r "$SCRIPT_PATH/scripts/${1}"
+        if [[ -e "$target_path" ]]; then
+            rm -r "$target_path"
+            echo "Target '$1' removed successfully."
+        else
+            echo "Target '$1' does not exist."
+        fi
     fi
 }
+
 
 function chipi.allow() {
     if [[ $1 == "--help" || $1 == "-h" ]]; then
