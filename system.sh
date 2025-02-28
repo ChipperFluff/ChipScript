@@ -3,6 +3,10 @@
 alias chipi.version="echo ChipScript 1.0.0 \U0001F43F️"
 alias chipi.reload="source ~/.bashrc"
 alias chipi.list="ls -a $SCRIPT_PATH/scripts"
+alias chipi.git="git -C \"$SCRIPT_PATH\""
+alias chipi.pull="git -C \"$SCRIPT_PATH\" pull"
+alias chipi.push="git -C \"$SCRIPT_PATH\" push"
+alias chipi.commit="git -C \"$SCRIPT_PATH\" add . && git -C \"$SCRIPT_PATH\" commit -m"
 
 function chipi.edit() {
     if [[ $1 == "--help" || $1 == "-h" ]]; then
@@ -15,7 +19,7 @@ function chipi.edit() {
         return
     fi
     if [[ $1 == "master" || $1 == "system" ]]; then
-        micro "$SCRIPT_PATH/scripts/${1}.sh"
+        micro "$SCRIPT_PATH/${1}.sh"
     else
         micro "$SCRIPT_PATH/scripts/${1}/${2}.sh"
     fi
@@ -154,7 +158,6 @@ function chipi.help() {
 }
 
 
-
 function chipi() {
     # Displaying general overview of ChipScript commands
     echo "Chipi Command Help Overview:"
@@ -206,5 +209,13 @@ function chipi() {
     # Section for providing help documentation
     echo "Providing help documentation:"
     chipi.help --help
+    echo ""
+
+    # Section for Git commands
+    echo "Git commands for script management:"
+    echo "  chipi.git <command>  - Runs Git commands in the ChipScript repo"
+    echo "  chipi.pull           - Pulls latest updates"
+    echo "  chipi.push           - Pushes committed changes"
+    echo "  chipi.commit \"msg\"  - Commits changes with a message"
     echo ""
 }
