@@ -3,9 +3,13 @@
 # Installer Script for ChipScript
 # This script ensures that the ChipScript master script is sourced from .bashrc
 
-chip_script_path="$HOME/ChipScript/master.sh"
+directory="$HOME/ChipScript"
+chip_script_path="$directory/master.sh"
 source_line="source \"$chip_script_path\""
 bashrc_path="$HOME/.bashrc"
+
+chmod +x "$directory/master.sh"
+chmod +x "$directory/system.sh"
 
 add_source_line() {
     echo "Adding ChipScript initialization to .bashrc..."
