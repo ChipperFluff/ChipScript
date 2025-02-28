@@ -76,5 +76,3 @@ MIT License - Use, modify, and contribute freely!
 
 🔥 **ChipScript: A lightweight script manager with Git integration.**  
 🚀 **Clone, create, sync, and run your scripts effortlessly!**
-
-> Sync Test
