@@ -5,6 +5,9 @@
 export SCRIPT_PATH="$HOME/ChipScript"
 source "$SCRIPT_PATH/system.sh"
 
+# Check for updates but silenced
+chipi.sync silence
+
 # Load specific modules from the ChipScript collection.
 chipi.load makeHtml
 chipi.load checkSize

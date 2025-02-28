@@ -1,6 +1,27 @@
 #!/bin/bash
 
-alias chipi.version="echo ChipScript 1.1.0 🐿️"
+alias chipi.version='echo ChipScript 1.1.$(ls -1 "$SCRIPT_PATH/scripts" | wc -l) 🐿️'
+
+function chipi.sync() {
+    local local_version=$(ls -1 "$SCRIPT_PATH/scripts" | wc -l)
+    
+    if [[ "$1" == "silence" ]]; then
+        git -C "$SCRIPT_PATH" pull -q >/dev/null 2>&1
+    else
+        git -C "$SCRIPT_PATH" pull
+    fi
+
+    local updated_version=$(ls -1 "$SCRIPT_PATH/scripts" | wc -l)
+
+    if [[ "$1" != "silence" ]]; then
+        if [[ "$local_version" -lt "$updated_version" ]]; then
+            echo "✅ ChipScript updated! New version: 1.1.$updated_version 🐿️"
+        else
+            echo "👌 ChipScript is already up to date. Version: 1.1.$local_version 🐿️"
+        fi
+    fi
+}
+
 alias chipi.reload="source ~/.bashrc"
 alias chipi.list="ls -a $SCRIPT_PATH/scripts"
 alias chipi.git="git -C \"$SCRIPT_PATH\""
@@ -217,5 +238,11 @@ function chipi() {
     echo "  chipi.pull           - Pulls latest updates"
     echo "  chipi.push           - Pushes committed changes"
     echo "  chipi.commit \"msg\"  - Commits changes with a message"
+    echo ""
+
+    # Section for syncing scripts
+    echo "Synchronizing scripts:"
+    echo "  chipi.sync           - Pulls latest scripts and updates version number"
+    echo "  chipi.sync silence   - Pulls updates without any output"
     echo ""
 }
