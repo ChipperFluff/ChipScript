@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # load system
-export SCRIPT_PATH="$HOME/projects/scripts"
+export SCRIPT_PATH="$HOME/ChipScript"
 source "$SCRIPT_PATH/system.sh"
 
 chipi.load makeHtml
