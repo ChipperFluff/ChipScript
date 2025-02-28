@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function html() {
+function chipi.html() {
     # Create main directory if not exists
     mkdir -p static/css static/js
 

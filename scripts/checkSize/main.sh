@@ -1,4 +1,4 @@
-alias checkSize='function _check_size() { 
+alias chipi.checkSize='function _check_size() { 
     if [ ! -f "$1" ]; then 
         echo -e "\e[31m[ERROR] File not found!\e[0m"; 
         return 1; 
