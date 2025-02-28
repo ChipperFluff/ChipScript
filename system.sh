@@ -27,8 +27,21 @@ function chipi.remove() {
     fi
 }
 
+function chipi.allow() {
+    if [[ -d "$SCRIPT_PATH/scripts/$1" ]]; then
+        find "$SCRIPT_PATH/scripts/$1" -type f -name '*.sh' -exec chmod +x {} +
+
+        if [[ ! $(find "$SCRIPT_PATH/scripts/$1" -type f -name '*.sh') ]]; then
+            echo "No .sh scripts found in $1."
+        fi
+    else
+        echo "Script directory $1 does not exist."
+    fi
+}
+
 function chipi.load() {
     if [[ -f "$SCRIPT_PATH/scripts/${1}/main.sh" ]]; then
+        chipi.allow ${1}
         source "$SCRIPT_PATH/scripts/${1}/main.sh"
     else
         echo "Error: No file main.sh found for ${1}"
