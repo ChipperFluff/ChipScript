@@ -99,7 +99,6 @@ function chipi.install() {
     local script_directory="$SCRIPT_PATH/scripts/$1"
     if [[ -d "$script_directory" ]]; then
         if [[ -f "$script_directory/install.sh" ]]; then
-            echo "Running 'install.sh' script in directory '$1'."
             "$script_directory/install.sh"
         fi
     else
