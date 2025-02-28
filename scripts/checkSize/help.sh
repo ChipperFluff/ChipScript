@@ -1,0 +1,1 @@
+echo "Usage: cfs <file> <max_size_kb> -- This function checks if the given file's size in bits does not exceed the specified maximum size in kilobytes. It displays the file size details, a progress bar representing bit usage, and feedback based on the size relative to the limit."
